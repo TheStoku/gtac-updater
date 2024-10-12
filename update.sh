@@ -1,3 +1,16 @@
+#!/bin/sh
+
+location='https://gtaconnected.com/versions/server/'
+
+if [ -z ${gtacver} ]; then
+  echo 'GTA:C Version not set. Downloading recent.'
+
+  if output=$(curl -L {${location}} | grep -o -P '(?<=<ul class="downloads"><li>).*?(?=<ul>)'); then
+    echo 'Received recent version:' "${output}"
+    export gtacver=${output}
+  fi
+fi
+
 rm -drf tmp &&
 mkdir tmp &&
 cd tmp &&
